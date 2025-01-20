@@ -17,7 +17,7 @@
         }
         textarea {
             width: 95%;
-            height: 250px;
+            height: 200px;
             font-size: 16px;
             padding: 10px;
             border: 2px solid #d1c4f1;
@@ -25,6 +25,19 @@
             outline: none;
             background-color: #fff;
             resize: none;
+        }
+        input[type="text"] {
+            width: 95%;
+            margin: 10px 0;
+            font-size: 16px;
+            padding: 5px;
+            border: 2px solid #d1c4f1;
+            border-radius: 5px;
+        }
+        select {
+            margin-bottom: 10px;
+            padding: 5px;
+            font-size: 16px;
         }
         button {
             margin-top: 10px;
@@ -46,7 +59,6 @@
             border-radius: 5px;
             padding: 10px;
             margin-bottom: 10px;
-            background-color: #fff;
             position: relative;
         }
         .entry-header {
@@ -74,7 +86,13 @@
     <div class="header">
         <span id="date-time"></span>
     </div>
+    <input type="text" id="journal-title" placeholder="Name your journal...">
     <textarea id="journal-text" placeholder="Start writing your thoughts..."></textarea>
+    <select id="journal-mood">
+        <option value="green">Happy (Green)</option>
+        <option value="red">Angry (Red)</option>
+        <option value="purple">Horny (Purple)</option>
+    </select>
     <button onclick="saveEntry()">Save Entry</button>
     <button onclick="downloadEntry()">Download as .txt</button>
 
@@ -83,26 +101,33 @@
     <script>
         const dateTimeEl = document.getElementById('date-time');
         const journalText = document.getElementById('journal-text');
+        const journalTitle = document.getElementById('journal-title');
+        const journalMood = document.getElementById('journal-mood');
         const entriesDiv = document.getElementById('entries');
         let startDateTime = '';
 
-        // Load saved entries on page load
         window.onload = () => {
             loadEntries();
         };
 
-        // Set the date & time when user starts typing
         journalText.addEventListener('input', () => {
-            if (!startDateTime) {
-                const now = new Date();
-                startDateTime = now.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }); // No seconds!
-                dateTimeEl.textContent = `Date & Time: ${startDateTime}`;
+            if (journalText.value.trim()) {
+                if (!startDateTime) {
+                    const now = new Date();
+                    startDateTime = now.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
+                    dateTimeEl.textContent = `Date & Time: ${startDateTime}`;
+                }
+            } else {
+                startDateTime = '';
+                dateTimeEl.textContent = '';
             }
         });
 
-        // Save the journal entry locally
         function saveEntry() {
+            const title = journalTitle.value.trim();
             const content = journalText.value.trim();
+            const mood = journalMood.value;
+
             if (!content) {
                 alert('Write something before saving!');
                 return;
@@ -110,52 +135,58 @@
 
             const entry = {
                 dateTime: startDateTime,
+                title: title || 'Untitled',
                 content: content,
+                mood: mood,
             };
 
-            // Save entry to local storage
             const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
             savedEntries.push(entry);
+            savedEntries.sort((a, b) => {
+                const moodOrder = { green: 0, purple: 1, red: 2 };
+                return moodOrder[a.mood] - moodOrder[b.mood];
+            });
             localStorage.setItem('journalEntries', JSON.stringify(savedEntries));
 
-            // Reset journal for new entry
+            journalTitle.value = '';
             journalText.value = '';
+            journalMood.value = 'green';
             dateTimeEl.textContent = '';
             startDateTime = '';
 
-            loadEntries(); // Refresh the displayed entries
+            loadEntries();
         }
 
-        // Download the current journal entry as .txt
         function downloadEntry() {
+            const title = journalTitle.value.trim() || 'Untitled';
             const content = journalText.value.trim();
             if (!content) {
                 alert('Write something before downloading!');
                 return;
             }
 
-            const blob = new Blob([`Date & Time: ${startDateTime}\n\n${content}`], {
+            const blob = new Blob([`Date & Time: ${startDateTime}\nTitle: ${title}\n\n${content}`], {
                 type: 'text/plain',
             });
 
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `journal-entry-${startDateTime.replace(/[\s,:\/]/g, '-')}.txt`;
+            link.download = `${title.replace(/[\s,:\/]/g, '-')}.txt`;
             link.click();
         }
 
-        // Load entries from local storage and display them
         function loadEntries() {
-            entriesDiv.innerHTML = ''; // Clear current entries
+            entriesDiv.innerHTML = '';
             const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
 
             savedEntries.forEach((entry, index) => {
                 const entryDiv = document.createElement('div');
                 entryDiv.className = 'entry';
+                entryDiv.style.backgroundColor = entry.mood;
 
                 const entryHeader = document.createElement('div');
                 entryHeader.className = 'entry-header';
-                entryHeader.textContent = `Date & Time: ${entry.dateTime}`;
+                entryHeader.textContent = `Date & Time: ${entry.dateTime} - ${entry.title}`;
 
                 const entryContent = document.createElement('div');
                 entryContent.textContent = entry.content;
@@ -176,12 +207,11 @@
             });
         }
 
-        // Delete a specific journal entry
         function deleteEntry(index) {
             const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
-            savedEntries.splice(index, 1); // Remove the entry at the specified index
+            savedEntries.splice(index, 1);
             localStorage.setItem('journalEntries', JSON.stringify(savedEntries));
-            loadEntries(); // Refresh the displayed entries
+            loadEntries();
         }
     </script>
 </body>
