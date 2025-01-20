@@ -31,11 +31,6 @@
             background-color: #fff;
             resize: none;
         }
-        textarea.dark-mode {
-            background-color: #444;
-            border-color: #888;
-            color: #ddd;
-        }
         input[type="text"] {
             width: 95%;
             margin: 10px 0;
@@ -44,24 +39,10 @@
             border: 2px solid #d1c4f1;
             border-radius: 5px;
         }
-        input[type="text"].dark-mode {
-            background-color: #444;
-            border-color: #888;
-            color: #ddd;
-        }
         select {
             margin-bottom: 10px;
-            padding: 10px;
+            padding: 5px;
             font-size: 16px;
-            background-color: #fff;
-            border: 2px solid #d1c4f1;
-            border-radius: 5px;
-            height: 40px; /* Match Save Entry button height */
-        }
-        select.dark-mode {
-            background-color: #444;
-            border-color: #888;
-            color: #ddd;
         }
         button {
             margin-top: 10px;
@@ -71,7 +52,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            height: 40px; /* Set height for consistency */
         }
         button:hover {
             background-color: #8b6de1;
@@ -81,10 +61,6 @@
         }
         .dark-mode button:hover {
             background-color: #333;
-        }
-        .dark-mode select {
-            background-color: #444;
-            border-color: #888;
         }
         .entries {
             margin-top: 20px;
@@ -133,10 +109,9 @@
     <input type="text" id="journal-title" placeholder="Name your journal...">
     <textarea id="journal-text" placeholder="Start writing your thoughts..."></textarea>
     <select id="journal-mood">
-        <option value="green">Happy</option>
-        <option value="purple">Horny</option>
-        <option value="red">Angry</option>
-        <option value="neutral">Neutral</option>
+        <option value="green">Happy (Green)</option>
+        <option value="red">Angry (Red)</option>
+        <option value="purple">Horny (Purple)</option>
     </select>
     <button onclick="saveEntry()">Save Entry</button>
     <button onclick="downloadEntry()">Download as .txt</button>
@@ -163,7 +138,7 @@
                 if (!startDateTime) {
                     const now = new Date();
                     startDateTime = now.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
-                    dateTimeEl.textContent = `Date & Time: ${startDateTime}`;
+                    dateTimeEl.textContent = Date & Time: ${startDateTime};
                 }
             } else {
                 startDateTime = '';
@@ -191,7 +166,7 @@
             const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
             savedEntries.push(entry);
             savedEntries.sort((a, b) => {
-                const moodOrder = { green: 0, purple: 1, red: 2, neutral: 3 };
+                const moodOrder = { green: 0, purple: 1, red: 2 };
                 return moodOrder[a.mood] - moodOrder[b.mood];
             });
             localStorage.setItem('journalEntries', JSON.stringify(savedEntries));
@@ -213,13 +188,13 @@
                 return;
             }
 
-            const blob = new Blob([`Date & Time: ${startDateTime}\nTitle: ${title}\n\n${content}`], {
+            const blob = new Blob([Date & Time: ${startDateTime}\nTitle: ${title}\n\n${content}], {
                 type: 'text/plain',
             });
 
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `${title.replace(/[\s,:\/]/g, '-')}.txt`;
+            link.download = ${title.replace(/[\s,:\/]/g, '-')}.txt;
             link.click();
         }
 
@@ -227,26 +202,11 @@
             body.classList.toggle('dark-mode');
             const darkMode = body.classList.contains('dark-mode');
             localStorage.setItem('darkMode', darkMode);
-            updateDarkModeElements();
         }
 
         function loadTheme() {
             const darkMode = localStorage.getItem('darkMode') === 'true';
-            if (darkMode) {
-                body.classList.add('dark-mode');
-                updateDarkModeElements();
-            }
-        }
-
-        function updateDarkModeElements() {
-            const elements = document.querySelectorAll('input[type="text"], textarea, select');
-            elements.forEach(element => {
-                if (body.classList.contains('dark-mode')) {
-                    element.classList.add('dark-mode');
-                } else {
-                    element.classList.remove('dark-mode');
-                }
-            });
+            if (darkMode) body.classList.add('dark-mode');
         }
 
         function loadEntries() {
@@ -255,11 +215,11 @@
 
             savedEntries.forEach((entry, index) => {
                 const entryDiv = document.createElement('div');
-                entryDiv.className = entry.mood;
+                entryDiv.className = entry ${entry.mood};
 
                 const entryHeader = document.createElement('div');
                 entryHeader.className = 'entry-header';
-                entryHeader.textContent = `Date & Time: ${entry.dateTime} - ${entry.title}`;
+                entryHeader.textContent = Date & Time: ${entry.dateTime} - ${entry.title};
 
                 const entryContent = document.createElement('div');
                 entryContent.textContent = entry.content;
