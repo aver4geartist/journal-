@@ -22,25 +22,46 @@ textarea {
     font-size: 16px;
     padding: 10px;
     border: 2px solid #d1c4f1;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     background-color: #fff;
     resize: none;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    border-color: #a389f4;
 }
 
 input[type="text"] {
     width: 95%;
     margin: 10px 0;
     font-size: 16px;
-    padding: 5px;
+    padding: 10px;
     border: 2px solid #d1c4f1;
-    border-radius: 5px;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #a389f4;
 }
 
 select {
+    width: 100%;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 10px;
     font-size: 16px;
+    border: 2px solid #d1c4f1;
+    border-radius: 10px;
+    background-color: #fff;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+select:focus {
+    border-color: #a389f4;
+    background-color: #f0f0f0;
 }
 
 button {
@@ -49,19 +70,20 @@ button {
     background-color: #a389f4;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #8b6de1;
 }
 
-.dark-mode button {
+body.dark-mode button {
     background-color: #444;
 }
 
-.dark-mode button:hover {
+body.dark-mode button:hover {
     background-color: #333;
 }
 
@@ -71,10 +93,11 @@ button:hover {
 
 .entry {
     border: 2px solid #d1c4f1;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
     position: relative;
+    transition: border-color 0.3s;
 }
 
 .entry.green {
@@ -87,6 +110,10 @@ button:hover {
 
 .entry.purple {
     border-color: purple;
+}
+
+.entry.yellow {
+    border-color: #f1c232; /* Yellow color for neutral mood */
 }
 
 .entry-header {
@@ -105,8 +132,60 @@ button:hover {
     border-radius: 5px;
     cursor: pointer;
     font-size: 12px;
+    transition: background-color 0.3s;
 }
 
 .delete-btn:hover {
     background-color: #e65555;
+}
+
+body.dark-mode .entry {
+    border-color: #444;
+}
+
+body.dark-mode .entry.green {
+    border-color: #77b300;
+}
+
+body.dark-mode .entry.red {
+    border-color: #e60000;
+}
+
+body.dark-mode .entry.purple {
+    border-color: #6a009d;
+}
+
+body.dark-mode .entry.yellow {
+    border-color: #d3a000; /* Darker yellow in dark mode */
+}
+
+body.dark-mode select {
+    background-color: #444;
+    color: #ddd;
+    border-color: #666;
+}
+
+body.dark-mode select:focus {
+    border-color: #a389f4;
+    background-color: #333;
+}
+
+body.dark-mode textarea {
+    background-color: #444;
+    color: #ddd;
+    border-color: #666;
+}
+
+body.dark-mode textarea:focus {
+    border-color: #a389f4;
+}
+
+body.dark-mode input[type="text"] {
+    background-color: #444;
+    color: #ddd;
+    border-color: #666;
+}
+
+body.dark-mode input[type="text"]:focus {
+    border-color: #a389f4;
 }
