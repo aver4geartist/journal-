@@ -10,6 +10,11 @@
             margin: 20px;
             background-color: #f7f3ff;
             color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #2e2e2e;
+            color: #ddd;
         }
         .header {
             font-size: 18px;
@@ -25,6 +30,16 @@
             outline: none;
             background-color: #fff;
             resize: none;
+            transition: border-color 0.3s;
+        }
+        textarea.green {
+            border-color: green;
+        }
+        textarea.red {
+            border-color: red;
+        }
+        textarea.purple {
+            border-color: purple;
         }
         input[type="text"] {
             width: 95%;
@@ -50,6 +65,12 @@
         }
         button:hover {
             background-color: #8b6de1;
+        }
+        .dark-mode button {
+            background-color: #444;
+        }
+        .dark-mode button:hover {
+            background-color: #333;
         }
         .entries {
             margin-top: 20px;
@@ -95,6 +116,7 @@
     </select>
     <button onclick="saveEntry()">Save Entry</button>
     <button onclick="downloadEntry()">Download as .txt</button>
+    <button onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
 
     <div class="entries" id="entries"></div>
 
@@ -104,6 +126,7 @@
         const journalTitle = document.getElementById('journal-title');
         const journalMood = document.getElementById('journal-mood');
         const entriesDiv = document.getElementById('entries');
+        const body = document.body;
         let startDateTime = '';
 
         window.onload = () => {
@@ -117,9 +140,12 @@
                     startDateTime = now.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
                     dateTimeEl.textContent = `Date & Time: ${startDateTime}`;
                 }
+                journalText.classList.remove('green', 'red', 'purple');
+                journalText.classList.add(journalMood.value);
             } else {
                 startDateTime = '';
                 dateTimeEl.textContent = '';
+                journalText.classList.remove('green', 'red', 'purple');
             }
         });
 
@@ -173,6 +199,10 @@
             link.href = URL.createObjectURL(blob);
             link.download = `${title.replace(/[\s,:\/]/g, '-')}.txt`;
             link.click();
+        }
+
+        function toggleDarkMode() {
+            body.classList.toggle('dark-mode');
         }
 
         function loadEntries() {
