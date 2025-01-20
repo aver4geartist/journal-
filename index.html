@@ -34,7 +34,6 @@
         select {
             background-color: #fff;
             color: #333;
-            margin-left: 10px; /* Adjusting dropdown position */
         }
         textarea {
             height: 200px;
@@ -87,9 +86,6 @@
         .entry.purple {
             border-color: purple;
         }
-        .entry.yellow { /* New neutral yellow mood */
-            border-color: yellow;
-        }
         .entry-header {
             font-weight: bold;
             margin-bottom: 5px;
@@ -109,6 +105,14 @@
         .delete-btn:hover {
             background-color: #e65555;
         }
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        select {
+            flex-grow: 1;
+        }
     </style>
 </head>
 <body>
@@ -117,14 +121,15 @@
     </div>
     <input type="text" id="journal-title" placeholder="Name your journal...">
     <textarea id="journal-text" placeholder="Start writing your thoughts..."></textarea>
-    <select id="journal-mood">
-        <option value="green">Happy (Green)</option>
-        <option value="red">Angry (Red)</option>
-        <option value="purple">Horny (Purple)</option>
-        <option value="yellow">Neutral (Yellow)</option> <!-- New yellow mood -->
-    </select>
-    <button onclick="saveEntry()">Save Entry</button>
-    <button onclick="downloadEntry()">Download as .txt</button>
+    <div class="buttons-container">
+        <select id="journal-mood">
+            <option value="green">Happy (Green)</option>
+            <option value="red">Angry (Red)</option>
+            <option value="purple">Horny (Purple)</option>
+        </select>
+        <button onclick="saveEntry()">Save Entry</button>
+        <button onclick="downloadEntry()">Download as .txt</button>
+    </div>
     <button onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
 
     <div class="entries" id="entries"></div>
@@ -176,7 +181,7 @@
             const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
             savedEntries.push(entry);
             savedEntries.sort((a, b) => {
-                const moodOrder = { green: 0, purple: 1, red: 2, yellow: 3 }; // Added yellow mood
+                const moodOrder = { green: 0, purple: 1, red: 2 };
                 return moodOrder[a.mood] - moodOrder[b.mood];
             });
             localStorage.setItem('journalEntries', JSON.stringify(savedEntries));
