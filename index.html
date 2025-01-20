@@ -77,14 +77,17 @@
             margin-bottom: 10px;
             position: relative;
         }
-        .entry.green {
+        .entry.happy {
             border-color: green;
         }
-        .entry.red {
+        .entry.horny {
+            border-color: purple;
+        }
+        .entry.angry {
             border-color: red;
         }
-        .entry.purple {
-            border-color: purple;
+        .entry.neutral {
+            border-color: yellow;
         }
         .entry-header {
             font-weight: bold;
@@ -105,6 +108,10 @@
         .delete-btn:hover {
             background-color: #e65555;
         }
+        .dropdown-container {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -112,13 +119,15 @@
         <span id="date-time"></span>
     </div>
     <input type="text" id="journal-title" placeholder="Name your journal...">
-    <textarea id="journal-text" placeholder="Start writing your thoughts..."></textarea>
-    <select id="journal-mood">
-        <option value="green">Happy (Green)</option>
-        <option value="red">Angry (Red)</option>
-        <option value="purple">Horny (Purple)</option>
-    </select>
-    <button onclick="saveEntry()">Save Entry</button>
+    <div class="dropdown-container">
+        <select id="journal-mood">
+            <option value="happy">Happy (Green)</option>
+            <option value="horny">Horny (Purple)</option>
+            <option value="angry">Angry (Red)</option>
+            <option value="neutral">Neutral (Yellow)</option>
+        </select>
+        <button onclick="saveEntry()">Save Entry</button>
+    </div>
     <button onclick="downloadEntry()">Download as .txt</button>
     <button onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
 
@@ -171,14 +180,14 @@
             const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
             savedEntries.push(entry);
             savedEntries.sort((a, b) => {
-                const moodOrder = { green: 0, purple: 1, red: 2 };
+                const moodOrder = { happy: 0, horny: 1, angry: 2, neutral: 3 };
                 return moodOrder[a.mood] - moodOrder[b.mood];
             });
             localStorage.setItem('journalEntries', JSON.stringify(savedEntries));
 
             journalTitle.value = '';
             journalText.value = '';
-            journalMood.value = 'green';
+            journalMood.value = 'happy';
             dateTimeEl.textContent = '';
             startDateTime = '';
 
