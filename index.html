@@ -51,11 +51,12 @@
         }
         select {
             margin-bottom: 10px;
-            padding: 5px;
+            padding: 10px;
             font-size: 16px;
             background-color: #fff;
             border: 2px solid #d1c4f1;
             border-radius: 5px;
+            height: 40px; /* Match Save Entry button height */
         }
         select.dark-mode {
             background-color: #444;
@@ -70,6 +71,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            height: 40px; /* Set height for consistency */
         }
         button:hover {
             background-color: #8b6de1;
@@ -131,9 +133,10 @@
     <input type="text" id="journal-title" placeholder="Name your journal...">
     <textarea id="journal-text" placeholder="Start writing your thoughts..."></textarea>
     <select id="journal-mood">
-        <option value="green">Happy (Green)</option>
-        <option value="red">Angry (Red)</option>
-        <option value="purple">Horny (Purple)</option>
+        <option value="green">Happy</option>
+        <option value="purple">Horny</option>
+        <option value="red">Angry</option>
+        <option value="neutral">Neutral</option>
     </select>
     <button onclick="saveEntry()">Save Entry</button>
     <button onclick="downloadEntry()">Download as .txt</button>
@@ -188,7 +191,7 @@
             const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
             savedEntries.push(entry);
             savedEntries.sort((a, b) => {
-                const moodOrder = { green: 0, purple: 1, red: 2 };
+                const moodOrder = { green: 0, purple: 1, red: 2, neutral: 3 };
                 return moodOrder[a.mood] - moodOrder[b.mood];
             });
             localStorage.setItem('journalEntries', JSON.stringify(savedEntries));
