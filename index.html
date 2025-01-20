@@ -4,7 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Journal</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f7f3ff;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #2e2e2e;
+            color: #ddd;
+        }
+        .header {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        textarea {
+            width: 95%;
+            height: 200px;
+            font-size: 16px;
+            padding: 10px;
+            border: 2px solid #d1c4f1;
+            border-radius: 5px;
+            outline: none;
+            background-color: #fff;
+            resize: none;
+        }
+        input[type="text"] {
+            width: 95%;
+            margin: 10px 0;
+            font-size: 16px;
+            padding: 5px;
+            border: 2px solid #d1c4f1;
+            border-radius: 5px;
+        }
+        select {
+            margin-bottom: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #a389f4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #8b6de1;
+        }
+        .dark-mode button {
+            background-color: #444;
+        }
+        .dark-mode button:hover {
+            background-color: #333;
+        }
+        .entries {
+            margin-top: 20px;
+        }
+        .entry {
+            border: 2px solid #d1c4f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .entry.green {
+            border-color: green;
+        }
+        .entry.red {
+            border-color: red;
+        }
+        .entry.purple {
+            border-color: purple;
+        }
+        .entry-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff6f6f;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .delete-btn:hover {
+            background-color: #e65555;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
