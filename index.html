@@ -34,6 +34,7 @@
         select {
             background-color: #fff;
             color: #333;
+            margin-left: 10px; /* Adjusting dropdown position */
         }
         textarea {
             height: 200px;
@@ -86,6 +87,9 @@
         .entry.purple {
             border-color: purple;
         }
+        .entry.yellow { /* New neutral yellow mood */
+            border-color: yellow;
+        }
         .entry-header {
             font-weight: bold;
             margin-bottom: 5px;
@@ -117,6 +121,7 @@
         <option value="green">Happy (Green)</option>
         <option value="red">Angry (Red)</option>
         <option value="purple">Horny (Purple)</option>
+        <option value="yellow">Neutral (Yellow)</option> <!-- New yellow mood -->
     </select>
     <button onclick="saveEntry()">Save Entry</button>
     <button onclick="downloadEntry()">Download as .txt</button>
@@ -171,7 +176,7 @@
             const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
             savedEntries.push(entry);
             savedEntries.sort((a, b) => {
-                const moodOrder = { green: 0, purple: 1, red: 2 };
+                const moodOrder = { green: 0, purple: 1, red: 2, yellow: 3 }; // Added yellow mood
                 return moodOrder[a.mood] - moodOrder[b.mood];
             });
             localStorage.setItem('journalEntries', JSON.stringify(savedEntries));
