@@ -30,16 +30,6 @@
             outline: none;
             background-color: #fff;
             resize: none;
-            transition: border-color 0.3s;
-        }
-        textarea.green {
-            border-color: green;
-        }
-        textarea.red {
-            border-color: red;
-        }
-        textarea.purple {
-            border-color: purple;
         }
         input[type="text"] {
             width: 95%;
@@ -76,11 +66,20 @@
             margin-top: 20px;
         }
         .entry {
-            border: 1px solid #d1c4f1;
+            border: 2px solid #d1c4f1;
             border-radius: 5px;
             padding: 10px;
             margin-bottom: 10px;
             position: relative;
+        }
+        .entry.green {
+            border-color: green;
+        }
+        .entry.red {
+            border-color: red;
+        }
+        .entry.purple {
+            border-color: purple;
         }
         .entry-header {
             font-weight: bold;
@@ -131,6 +130,7 @@
 
         window.onload = () => {
             loadEntries();
+            loadTheme();
         };
 
         journalText.addEventListener('input', () => {
@@ -140,12 +140,9 @@
                     startDateTime = now.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
                     dateTimeEl.textContent = `Date & Time: ${startDateTime}`;
                 }
-                journalText.classList.remove('green', 'red', 'purple');
-                journalText.classList.add(journalMood.value);
             } else {
                 startDateTime = '';
                 dateTimeEl.textContent = '';
-                journalText.classList.remove('green', 'red', 'purple');
             }
         });
 
@@ -203,6 +200,13 @@
 
         function toggleDarkMode() {
             body.classList.toggle('dark-mode');
+            const darkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', darkMode);
+        }
+
+        function loadTheme() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            if (darkMode) body.classList.add('dark-mode');
         }
 
         function loadEntries() {
@@ -211,8 +215,7 @@
 
             savedEntries.forEach((entry, index) => {
                 const entryDiv = document.createElement('div');
-                entryDiv.className = 'entry';
-                entryDiv.style.backgroundColor = entry.mood;
+                entryDiv.className = `entry ${entry.mood}`;
 
                 const entryHeader = document.createElement('div');
                 entryHeader.className = 'entry-header';
