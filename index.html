@@ -6,48 +6,50 @@
     <title>Online Journal</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f0e5ff;
+            background-color: #f7f3ff;
             color: #333;
             transition: background-color 0.3s, color 0.3s;
         }
         body.dark-mode {
-            background-color: #2b2b2b;
-            color: #ccc;
+            background-color: #2e2e2e;
+            color: #ddd;
         }
         .header {
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 10px;
-            color: #4c4cff;
         }
         textarea, input[type="text"], select {
             width: 95%;
             margin: 10px 0;
             font-size: 16px;
             padding: 10px;
-            border: 2px solid #9e77ff;
-            border-radius: 8px;
+            border: 2px solid #d1c4f1;
+            border-radius: 5px;
             background-color: #fff;
+            color: #333;
             outline: none;
-            transition: border-color 0.3s;
-        }
-        textarea:focus, input[type="text"]:focus, select:focus {
-            border-color: #5e41f9;
         }
         select {
-            padding-right: 30px; /* For better dropdown visibility */
+            background-color: #fff;
+            color: #333;
+        }
+        textarea {
+            height: 200px;
+            resize: none;
+        }
+        input[type="text"], select {
+            font-size: 16px;
         }
         button {
             margin-top: 10px;
-            padding: 12px 25px;
+            padding: 10px 20px;
             background-color: #a389f4;
             color: #fff;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease-in-out;
         }
         button:hover {
             background-color: #8b6de1;
@@ -58,55 +60,50 @@
         .dark-mode button:hover {
             background-color: #333;
         }
+        body.dark-mode textarea,
+        body.dark-mode input[type="text"],
+        body.dark-mode select {
+            background-color: #444;
+            color: #ddd;
+            border-color: #6a4e94;
+        }
         .entries {
             margin-top: 20px;
         }
         .entry {
             border: 2px solid #d1c4f1;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
             position: relative;
-            background-color: #fff;
-            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .entry:hover {
-            background-color: #f5f5f5;
-            transform: translateY(-5px);
         }
         .entry.green {
-            border-color: #4caf50;
+            border-color: green;
         }
         .entry.red {
-            border-color: #f44336;
+            border-color: red;
         }
         .entry.purple {
-            border-color: #9c27b0;
+            border-color: purple;
         }
         .entry-header {
             font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .entry-content {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .delete-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #ff5252;
+            background-color: #ff6f6f;
             color: #fff;
             border: none;
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 12px;
-            transition: background-color 0.3s ease;
         }
         .delete-btn:hover {
-            background-color: #e03939;
+            background-color: #e65555;
         }
     </style>
 </head>
@@ -230,7 +227,6 @@
                 entryHeader.textContent = `Date & Time: ${entry.dateTime} - ${entry.title}`;
 
                 const entryContent = document.createElement('div');
-                entryContent.className = 'entry-content';
                 entryContent.textContent = entry.content;
 
                 const deleteBtn = document.createElement('button');
