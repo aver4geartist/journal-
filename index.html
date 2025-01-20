@@ -20,28 +20,26 @@
             font-size: 18px;
             margin-bottom: 10px;
         }
-        textarea {
+        textarea, input[type="text"], select {
             width: 95%;
-            height: 200px;
+            margin: 10px 0;
             font-size: 16px;
             padding: 10px;
             border: 2px solid #d1c4f1;
             border-radius: 5px;
-            outline: none;
             background-color: #fff;
-            resize: none;
-        }
-        input[type="text"] {
-            width: 95%;
-            margin: 10px 0;
-            font-size: 16px;
-            padding: 5px;
-            border: 2px solid #d1c4f1;
-            border-radius: 5px;
+            color: #333;
+            outline: none;
         }
         select {
-            margin-bottom: 10px;
-            padding: 5px;
+            background-color: #fff;
+            color: #333;
+        }
+        textarea {
+            height: 200px;
+            resize: none;
+        }
+        input[type="text"], select {
             font-size: 16px;
         }
         button {
@@ -61,6 +59,13 @@
         }
         .dark-mode button:hover {
             background-color: #333;
+        }
+        body.dark-mode textarea,
+        body.dark-mode input[type="text"],
+        body.dark-mode select {
+            background-color: #444;
+            color: #ddd;
+            border-color: #6a4e94;
         }
         .entries {
             margin-top: 20px;
@@ -138,7 +143,7 @@
                 if (!startDateTime) {
                     const now = new Date();
                     startDateTime = now.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
-                    dateTimeEl.textContent = Date & Time: ${startDateTime};
+                    dateTimeEl.textContent = `Date & Time: ${startDateTime}`;
                 }
             } else {
                 startDateTime = '';
@@ -188,13 +193,13 @@
                 return;
             }
 
-            const blob = new Blob([Date & Time: ${startDateTime}\nTitle: ${title}\n\n${content}], {
+            const blob = new Blob([`Date & Time: ${startDateTime}\nTitle: ${title}\n\n${content}`], {
                 type: 'text/plain',
             });
 
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = ${title.replace(/[\s,:\/]/g, '-')}.txt;
+            link.download = `${title.replace(/[\s,:\/]/g, '-')}.txt`;
             link.click();
         }
 
@@ -215,11 +220,11 @@
 
             savedEntries.forEach((entry, index) => {
                 const entryDiv = document.createElement('div');
-                entryDiv.className = entry ${entry.mood};
+                entryDiv.className = `entry ${entry.mood}`;
 
                 const entryHeader = document.createElement('div');
                 entryHeader.className = 'entry-header';
-                entryHeader.textContent = Date & Time: ${entry.dateTime} - ${entry.title};
+                entryHeader.textContent = `Date & Time: ${entry.dateTime} - ${entry.title}`;
 
                 const entryContent = document.createElement('div');
                 entryContent.textContent = entry.content;
