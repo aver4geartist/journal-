@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Journal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f7f3ff;
+            color: #333;
+        }
+        .header {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            font-size: 16px;
+            padding: 10px;
+            border: 2px solid #d1c4f1;
+            border-radius: 5px;
+            outline: none;
+            background-color: #fff;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #a389f4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #8b6de1;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span id="date-time"></span>
+    </div>
+    <textarea id="journal-text" placeholder="Start writing your thoughts..."></textarea>
+    <button onclick="saveEntry()">Save Entry</button>
+
+    <script>
+        const dateTimeEl = document.getElementById('date-time');
+        const journalText = document.getElementById('journal-text');
+        let startDateTime = '';
+
+        // Set the date & time when user starts typing
+        journalText.addEventListener('input', () => {
+            if (!startDateTime) {
+                const now = new Date();
+                startDateTime = now.toLocaleString(); // Format: MM/DD/YYYY, HH:MM:SS
+                dateTimeEl.textContent = `Date & Time: ${startDateTime}`;
+            }
+        });
+
+        // Save the journal entry as a file
+        function saveEntry() {
+            const content = journalText.value.trim();
+            if (!content) {
+                alert('Write something before saving!');
+                return;
+            }
+
+            const blob = new Blob([`Date & Time: ${startDateTime}\n\n${content}`], {
+                type: 'text/plain',
+            });
+
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `journal-entry-${startDateTime.replace(/[\s,:\/]/g, '-')}.txt`;
+            link.click();
+
+            // Reset journal for a new entry
+            journalText.value = '';
+            dateTimeEl.textContent = '';
+            startDateTime = '';
+        }
+    </script>
+</body>
+</html>
