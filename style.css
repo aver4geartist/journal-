@@ -70,4 +70,84 @@ body.dark-mode select {
 button {
     padding: 10px 20px;
     margin: 5px 5px 10px 0;
-    background-color: #6a
+    background-color: #6a5acd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    background-color: #5847c3;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode button {
+    background-color: #4444aa;
+}
+
+/* entries container styles */
+.entries {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* individual entry box */
+.entry {
+    border: 2px solid #bdb2ff;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #f4f1ff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.entry:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode .entry {
+    background-color: #2e2e4a;
+    border-color: #8a79ff;
+}
+
+.entry.green {
+    border-color: green;
+}
+
+.entry.red {
+    border-color: red;
+}
+
+.entry.purple {
+    border-color: purple;
+}
+
+/* delete button */
+.delete-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #ff6f6f;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #e05555;
+}
+
+body.dark-mode .delete-btn {
+    background-color: #aa4444;
+}
