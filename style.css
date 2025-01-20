@@ -1,0 +1,73 @@
+/* global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    background-color: #f9f5ff;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #1e1e2f;
+    color: #d7d7e0;
+}
+
+/* header styles */
+.header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #6a5acd;
+}
+
+body.dark-mode .header {
+    color: #ad9aff;
+}
+
+/* input box styles */
+textarea,
+input[type="text"] {
+    width: 95%;
+    font-size: 16px;
+    padding: 10px;
+    border: 2px solid #bdb2ff;
+    border-radius: 8px;
+    margin: 10px 0;
+    background-color: #fff;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+body.dark-mode textarea,
+body.dark-mode input[type="text"] {
+    background-color: #2d2d3e;
+    border-color: #8a79ff;
+    color: #e0e0ff;
+}
+
+textarea {
+    height: 180px;
+    resize: none;
+}
+
+/* select styles */
+select {
+    padding: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 2px solid #bdb2ff;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+body.dark-mode select {
+    background-color: #2d2d3e;
+    border-color: #8a79ff;
+    color: #e0e0ff;
+}
+
+/* button styles */
+button {
+    padding: 10px 20px;
+    margin: 5px 5px 10px 0;
+    background-color: #6a
