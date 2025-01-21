@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Journal</title>
+  <title>journal!!</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -141,7 +141,7 @@
         if (!startDateTime) {
           const now = new Date();
           startDateTime = now.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
-          dateTimeEl.textContent = Date & Time: ${startDateTime};
+          dateTimeEl.textContent = `Date & Time: ${startDateTime}`;
         }
       } else {
         startDateTime = '';
@@ -183,10 +183,10 @@
         alert('Write something before downloading!');
         return;
       }
-      const blob = new Blob([Date & Time: ${startDateTime}\nTitle: ${title}\n\n${content}], { type: 'text/plain' });
+      const blob = new Blob([`Date & Time: ${startDateTime}\nTitle: ${title}\n\n${content}`], { type: 'text/plain' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = ${title.replace(/[\s,:\/]/g, '-')}.txt;
+      link.download = `${title.replace(/[\s,:\/]/g, '-')}.txt`;
       link.click();
     }
     function toggleDarkMode() {
@@ -203,10 +203,10 @@
       const savedEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
       savedEntries.forEach((entry, index) => {
         const entryDiv = document.createElement('div');
-        entryDiv.className = entry ${entry.mood};
+        entryDiv.className = `entry ${entry.mood}`;
         const entryHeader = document.createElement('div');
         entryHeader.className = 'entry-header';
-        entryHeader.textContent = Date & Time: ${entry.dateTime} - ${entry.title};
+        entryHeader.textContent = `Date & Time: ${entry.dateTime} - ${entry.title}`;
         const entryContent = document.createElement('div');
         entryContent.textContent = entry.content;
         const deleteBtn = document.createElement('button');
@@ -232,4 +232,3 @@
   </script>
 </body>
 </html>
-
